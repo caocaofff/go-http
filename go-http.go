@@ -39,7 +39,7 @@ func Handler(w http.ResponseWriter, req *http.Request) {
 
 	// 404 if file doesn't exist
 	if os.IsNotExist(err) {
-		_, err = io.WriteString(w, "404 Not Found")
+		_, err = io.WriteString(w, "404 - File Not Found")
 		Logger(req, http.StatusNotFound)
 		return
 	}
@@ -146,7 +146,7 @@ func main() {
 
 	// Directory
 	if *defaultPathPtr != "" {
-		defaultPath = "./" + *defaultPathPtr + "/"
+		defaultPath = *defaultPathPtr + "/"
 	} else {
 		defaultPath = ""
 	}
@@ -159,7 +159,7 @@ func main() {
 
 	baseURL = "http://localhost:" + portNum
 
-	fmt.Println("Serving on ", baseURL, " subdirectory ", defaultPath)
+	fmt.Println("Serving on ", baseURL, " directory ", defaultPath)
 
 	http.HandleFunc("/", Handler)
 	err := http.ListenAndServe(":"+portNum, nil)
